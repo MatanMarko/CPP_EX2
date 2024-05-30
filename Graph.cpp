@@ -40,14 +40,31 @@ namespace ariel {
     /*
     Prints the graph.
     */
-    void Graph::printGraph() {
-        for (const auto& row : adjacencyMatrix) {
-            for (const auto& value : row) {
-                cout << value << " ";
-            }
-            cout << endl;
+
+    // string Graph::printGraph() {
+    //     string str = "";
+    //     for (const auto& row : adjacencyMatrix) {
+    //         for (const auto& value : row) {
+    //             str += to_string(value) + " ";
+    //         }
+    //         str += "\n";
+    //     }
+    //     return str;
+    // }
+
+    string Graph::printGraph() {
+    string str = "";
+    for (const auto& row : adjacencyMatrix) {
+        str += "[";
+        for (const auto& value : row) {
+            str += to_string(value) + ", ";
         }
+        str = str.substr(0, str.size()-2); // Remove the last comma and space
+        str += "], ";
     }
+    str = str.substr(0, str.size()-2); // Remove the last comma and space
+    return str;
+}
 
     /*
     Inputed graph:
@@ -172,14 +189,22 @@ namespace ariel {
     @return The sum of the two graphs as a new graph.
     */
     Graph Graph::operator+(Graph& other) {
-       if (numVertices != other.numVertices) {
+
+        unsigned int size = getNumVertices();
+
+        if (size != other.getNumVertices()) {
             throw invalid_argument("The graphs must have the same number of vertices.");
         }
 
-        vector<vector<int>> newMatrix((numVertices, vector<int>(numVertices), 0));
-        for (unsigned int i = 0; i < numVertices; i++) {
-            for (unsigned int j = 0; j < numVertices; j++) {
-                newMatrix[i][j] = adjacencyMatrix[i][j] + other.adjacencyMatrix[i][j];
+        vector<vector<int>> newMatrix(size, vector<int>((size), 0));
+        for (unsigned int i = 0; i < size; i++) {
+            for (unsigned int j = 0; j < size; j++) {
+                if (i != j){
+                    newMatrix[i][j] = adjacencyMatrix[i][j] + other.adjacencyMatrix[i][j];
+                }
+                else{
+                    newMatrix[i][j] = 0;
+                }
             }
         }
 
@@ -368,6 +393,7 @@ namespace ariel {
         if (*this < other || *this == other){
             return true;
         }
+        return false;
     }
 
 
@@ -456,6 +482,38 @@ namespace ariel {
         }
         return *this;
     }
+
+
+    // Graph Graph::operator*(Graph &g) // Multiply the weights of the two graphs
+    // {
+    //     if (adjacencyMatrix[0].size() != g.getNumVertices())
+    //     {
+    //         throw invalid_argument("The number of columns in the first matrix must be equal to the number of rows in the second matrix.");
+    //     }
+    //     vector<vector<int>> newGraph;
+    //     for (size_t i = 0; i < adjacencyMatrix.size(); i++)
+    //     {
+    //         vector<int> row;
+    //         for (size_t j = 0; j < g.getNumVertices(); j++)
+    //         {
+    //             int sum = 0;
+    //             for (size_t k = 0; k < adjacencyMatrix[i].size(); k++)
+    //             {
+    //                 sum += adjacencyMatrix[i][k] * g.adjacencyMatrix[k][j];
+    //             }
+    //             row.push_back(sum);
+    //         }
+    //         newGraph.push_back(row);
+    //     }
+    //     for (size_t i = 0; i < newGraph.size(); i++)
+    //     {
+    //         newGraph[i][i] = 0;
+    //     }
+    //     Graph newG;
+    //     newG.loadGraph(newGraph);
+    //     return newG;
+    // }
+
 
     /*
     Multiply two graphs.

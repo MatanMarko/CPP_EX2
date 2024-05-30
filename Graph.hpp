@@ -24,7 +24,7 @@ namespace ariel {
     
         void loadGraph(const vector<vector<int>> &graph);
 
-        void printGraph();
+        string printGraph();
 
         bool isDirectedGraph();
 
