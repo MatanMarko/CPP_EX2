@@ -1,22 +1,115 @@
-# מטלה 2 - גרפים והעמסת אופרטורים
+# Graph Operations Library
 
-במטלה הקודמת מימשתם את המחלקה `Graph.cpp` המאפשרת ייצוג של גרפים בעזרת מטריצת שכנויות. במטלה הזאת, אתם תרחיבו את המחלקה ותוסיפו תמיכה באופרטורים חשבוניים על גרפים.
-כאמור, הגרפים מיוצגים בעזרת מטריצת שכנויות, לכן כל האופרטורים צריכים להיות חוקיים עבור מטריצות (כמו שלמדתם בקורס אלגברה לינארית).
+## Overview
 
-אתם תצטרכו להוסיף את האופרטורים הבאים:
+This project implements a comprehensive library for performing various operations on graphs. The primary data structure is a graph represented by its adjacency matrix. The library includes functionalities for adding, subtracting, and comparing graphs, as well as incrementing, decrementing, and multiplying graphs by scalars or other graphs. 
 
-- שישה אופרטורים חשבוניים: חיבור (+) הוספה (+=) פלוס אונרי (+), ושלושת האופרטורים המקבילים לחיסור (-). כאמור, חיבור/חיסור של שתי מטריצות מוגדר רק על מטריצות מאותו סדר גודל nXn. ניסיון לחבר/לחסר שתי מטריצות שלא מקיימות תנאי זה יגרום לזריקת שגיאה.
-- שישה אופרטורי השוואה: גדול, גדול-או-שווה, קטן, קטן-או-שווה, שווה, לא-שווה. לשם מטלה זו כללי השוואת גרפים הם כדלקמן:
+## Features
 
-  1. גרפים G1 ו-G2 ייקראו שווים אם הם מאותו סדר גודל ומכילים את אותן הצלעות (והמשקלים של הצלעות זהים) או אם G1 לא גדול מ-G2 וגם G2 לא גדול מ-G1.
-  2. גרף G2 גדול מגרף G1 אם הגרף G1 מוכל ממש בגרף G2. אם אף גרף לא מוכל ממש בשני והגרפים לא שווים, אז גרף G2 גדול מגרף G1 אם מספר הצלעות ב-G2 גדול ממספר הצלעות ב-G1. אם בכל זאת מספר הצלעות זהה, אז הגרף G2 גדול מהגרף G1 אם המטריצה המייצגת של G2 בעלת סדר גודל גבוה יותר משל G1.
+- **Graph Addition and Subtraction**
+  - `operator+` and `operator-` to add or subtract two graphs and return a new graph.
+  - `operator+=` and `operator-=` to add or subtract another graph to the current graph.
 
-- הגדלה ב-1 (++) והקטנה ב-1 (--) לפני ואחרי המספר. פעולה זו תגדיל או תקטין ב-1 את כל המשקלים של הצלעות בגרף.
-- הכפלה בסקלר שלם (`int`) - מכפיל את המשקל של כל הצלעות.
-- הכפלת גרפים - אנחנו מגדירים את פעולת הכפל בין גרף G1 לגרף G2 על ידי מכפלה של המטריצות המייצגות של שני הגרפים. התוצאה צריכה להיות מטריצה המייצגת גרף. ניסיון לבצע כפל בין גרפים בגדלים שונים צריך לזרוק שגיאה.
-- אופרטור פלט - הדפסה הגיונית של הגרף (צורת ההפדסה היא לשיקולכם).
+- **Graph Comparison**
+  - `operator==` and `operator!=` to check if two graphs are equal or not.
+  - `operator>` and `operator<` to check if one graph is a subgraph of another graph.
+  - `operator>=` and `operator<=` to check if one graph is greater than or equal to or less than or equal to another graph.
 
+- **Unary Operations**
+  - `operator+` to return the graph itself.
+  - `operator-` to negate all the values in the adjacency matrix.
 
-כמו כן, עליכם לכלול גם את הקובץ `Algorithms.cpp` מהמטלה הקודמת ולראות כיצד הפונקציות שהגדרתם בפעם הקודמת משתנות עכשיו. בנוסף לקבצים של המטלה אתם נדרשים להגיש גם קובץ README המתאר את אופן המימוש ואת החלוקה שביצעתם בקוד (סוג של מדריך משתמש).
-עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. אי עמידה בהנחיות תגרור הפחתה בציון.
-בהצלחה!
+- **Prefix and Postfix Increment/Decrement**
+  - `operator++` and `operator--` for prefix increment/decrement.
+  - `operator++(int)` and `operator--(int)` for postfix increment/decrement.
+
+- **Multiplication**
+  - `operator*` and `operator*=` to multiply a graph by a scalar or another graph.
+
+- **Output**
+  - `operator<<` to print the adjacency matrix of the graph.
+
+## Getting Started
+
+### Prerequisites
+
+- C++ compiler supporting C++11 or later.
+
+### Installation
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/graph-operations-library.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd graph-operations-library
+   ```
+
+### Usage
+
+#### Example
+
+```cpp
+#include <iostream>
+#include "Graph.h"
+
+int main() {
+    // Create two graphs
+    ariel::Graph g1;
+    ariel::Graph g2;
+
+    // Load graphs with adjacency matrices
+    g1.loadGraph({{0, 1}, {1, 0}});
+    g2.loadGraph({{1, 0}, {0, 1}});
+
+    // Add graphs
+    ariel::Graph g3 = g1 + g2;
+    std::cout << "Sum of g1 and g2:\n" << g3;
+
+    // Subtract graphs
+    ariel::Graph g4 = g1 - g2;
+    std::cout << "Difference of g1 and g2:\n" << g4;
+
+    // Multiply graph by scalar
+    ariel::Graph g5 = g1 * 2;
+    std::cout << "g1 multiplied by 2:\n" << g5;
+
+    // Check equality
+    if (g1 == g2) {
+        std::cout << "g1 and g2 are equal\n";
+    } else {
+        std::cout << "g1 and g2 are not equal\n";
+    }
+
+    return 0;
+}
+```
+
+## Documentation
+
+### Graph Class
+
+#### Methods
+
+- `Graph operator+(Graph& other)`: Adds two graphs.
+- `Graph operator+=(Graph& other)`: Adds a graph to the current graph.
+- `Graph operator-(Graph& other)`: Subtracts one graph from another.
+- `Graph operator-=(Graph& other)`: Subtracts a graph from the current graph.
+- `Graph operator*(int scalar)`: Multiplies a graph by a scalar.
+- `Graph operator*=(int scalar)`: Multiplies the current graph by a scalar.
+- `Graph operator*(Graph& other)`: Multiplies two graphs.
+- `Graph operator*=(Graph& other)`: Multiplies the current graph by another graph.
+- `bool operator==(Graph& other)`: Checks if two graphs are equal.
+- `bool operator!=(Graph& other)`: Checks if two graphs are not equal.
+- `bool operator>(Graph& other)`: Checks if the current graph contains the other graph as a subgraph.
+- `bool operator<(Graph& other)`: Checks if the other graph contains the current graph as a subgraph.
+- `bool operator>=(Graph& other)`: Checks if the current graph is greater than or equal to the other graph.
+- `bool operator<=(Graph& other)`: Checks if the current graph is less than or equal to the other graph.
+- `Graph operator++()`: Prefix increment operator.
+- `Graph operator++(int)`: Postfix increment operator.
+- `Graph operator--()`: Prefix decrement operator.
+- `Graph operator--(int)`: Postfix decrement operator.
+- `Graph operator+()`: Unary plus operator.
+- `Graph operator-()`: Unary minus operator.
+- `friend ostream& operator<<(ostream& os, const Graph& graph)`: Output operator to print the adjacency matrix.
