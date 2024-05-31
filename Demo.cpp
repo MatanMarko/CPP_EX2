@@ -63,4 +63,51 @@ int main()
         cout << e.what() << endl; // Should print "The number of columns in the first matrix must be equal to the number of rows in the second matrix."
     }
 
+
+    ariel::Graph gONE;
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graphONE = {
+        {0, 2, 0, 0, 2},
+        {2, 0, 2, 0, 0},
+        {0, 2, 0, 2, 0},
+        {0, 0, 2, 0, 2},
+        {2, 0, 0, 2, 0}};
+    gONE.loadGraph(graphONE); // Load the graph to the object.
+
+    ariel::Graph gTWO;
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graphTWO = {
+        {0, 2, 0, 0, 2},
+        {2, 0, 2, 0, 0},
+        {0, 2, 0, 2, 0},
+        {0, 0, 2, 0, 2},
+        {2, 0, 0, 2, 0}};
+    gTWO.loadGraph(graphTWO); // Load the graph to the object.
+
+     ariel::Graph gTHREE;   //= g1
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graphTHREE = {
+        {0, 1, 0, 0, 1},
+        {1, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0},
+        {0, 0, 1, 0, 1},
+        {1, 0, 0, 1, 0}};
+    gTHREE.loadGraph(graphTHREE); // Load the graph to the object.
+    
+    cout<<"//////////////////////////////////////////\n";
+    cout << gONE.printGraph();
+    cout<<"\n";
+    cout<<"//////////////////////////////////////////\n";
+    cout << gTWO.printGraph();
+    cout<<"\n";
+
+    gONE -= gTHREE;
+    gTWO -= gTHREE;
+
+    cout<<"//////////////////////////////////////////\n";
+    cout << gONE.printGraph();
+    cout<<"\n";
+    cout<<"//////////////////////////////////////////\n";
+    cout << gONE.printGraph();
+    cout<<"\n";
 }

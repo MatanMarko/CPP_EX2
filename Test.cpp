@@ -232,14 +232,14 @@ TEST_CASE("Test 14")
     ariel::Graph g2;
     // 5x5 matrix that represents a connected graph.
     vector<vector<int>> graph3 = {
-        {0, 1, 0, 0, 1},
+        {0, 6, 0, 0, 1},
         {1, 0, 1, 0, 0},
         {0, 1, 0, 1, 0},
         {0, 0, 1, 0, 1},
         {1, 0, 0, 1, 0}};
     g2.loadGraph(graph3); // Load the graph to the object.
 
-    CHECK(g1 != g2);    // expected: false
+    CHECK(g1 != g2);  
 }
 
 TEST_CASE("Test 15")
@@ -257,14 +257,12 @@ TEST_CASE("Test 15")
     ariel::Graph g2;
     // 5x5 matrix that represents a connected graph.
     vector<vector<int>> graph3 = {
-        {0, 1, 0, 0, 1},
-        {1, 0, 1, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
-        {1, 0, 0, 1, 0}};
+        {0, 1, 0},
+        {0, 0, 1},
+        {1, 0, 0}};
     g2.loadGraph(graph3); // Load the graph to the object.
 
-    CHECK(g1 > g2);
+    CHECK(g1 > g2); //expected true
 }
 
 TEST_CASE("Test 16")
@@ -272,11 +270,10 @@ TEST_CASE("Test 16")
     ariel::Graph g1;
     // 5x5 matrix that represents a connected graph.
     vector<vector<int>> graph2 = {
-        {0, 1, 0, 0, 1},
-        {1, 0, 1, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
-        {1, 0, 0, 1, 0}};
+        {0, 1, 0, 0},
+        {1, 0, 1, 0},
+        {0, 1, 0, 1},
+        {0, 0, 1, 0}};
     g1.loadGraph(graph2); // Load the graph to the object.
 
     ariel::Graph g2;
@@ -289,7 +286,7 @@ TEST_CASE("Test 16")
         {1, 0, 0, 1, 0}};
     g2.loadGraph(graph3); // Load the graph to the object.
 
-    CHECK(g1 < g2);
+    CHECK(g1 < g2); //expected true
 }
 
 TEST_CASE("Test 17")
@@ -368,35 +365,7 @@ TEST_CASE("Test 19")
     CHECK(g3 == g4);
 }
 
-// TEST_CASE("Test 20")
-// {
-//     ariel::Graph g1;
-//     // 5x5 matrix that represents a connected graph.
-//     vector<vector<int>> graph2 = {
-//         {0, 1, 0, 0, 1},
-//         {1, 0, 1, 0, 0},
-//         {0, 1, 0, 1, 0},
-//         {0, 0, 1, 0, 1},
-//         {1, 0, 0, 1, 0}};
-//     g1.loadGraph(graph2); // Load the graph to the object.
-
-//     ariel::Graph g2;
-//     // 5x5 matrix that represents a connected graph.
-//     vector<vector<int>> graph3 = {
-//         {0, 1, 0, 0, 1},
-//         {1, 0, 1, 0, 0},
-//         {0, 1, 0, 1, 0},
-//         {0, 0, 1, 0, 1},
-//         {1, 0, 0, 1, 0}};
-//     g2.loadGraph(graph3); // Load the graph to the object.
-//     Graph g3 = g1 - g2;
-//     Graph g4 = g2 - g1;
-//     g3.loadGraph(g3.getAdjacencyMatrix());
-//     g4.loadGraph(g4.getAdjacencyMatrix());
-//     CHECK(g3 == g4);
-// }
-
-TEST_CASE("Test 21")
+TEST_CASE("Test 20")
 {
     ariel::Graph g1;
     // 5x5 matrix that represents a connected graph.
@@ -417,11 +386,60 @@ TEST_CASE("Test 21")
         {0, 0, 1, 0, 1},
         {1, 0, 0, 1, 0}};
     g2.loadGraph(graph3); // Load the graph to the object.
-    Graph g3 = g1 += g2;
-    Graph g4 = g2 += g1;
-    g3.loadGraph(g3.getAdjacencyMatrix());
-    g4.loadGraph(g4.getAdjacencyMatrix());
-    CHECK(g3 == g4);
+
+     ariel::Graph g3;   //= g1
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graph30 = {
+        {0, 1, 0, 0, 1},
+        {1, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0},
+        {0, 0, 1, 0, 1},
+        {1, 0, 0, 1, 0}};
+    g3.loadGraph(graph30); // Load the graph to the object.
+    
+    g1 -= g2;
+    g2 -= g3;
+
+    g1.printGraph();
+    g2.printGraph();
+    
+    CHECK(g1 == g2);
+}
+
+TEST_CASE("Test 21")
+{
+    ariel::Graph g1;
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graph2 = {
+        {0, 2, 0, 0, 2},
+        {2, 0, 3, 0, 0},
+        {0, 2, 0, 4, 0},
+        {0, 0, 2, 0, 5},
+        {2, 0, 0, 2, 0}};
+    g1.loadGraph(graph2); // Load the graph to the object.
+
+    ariel::Graph g2;
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graph3 = {
+        {0, 1, 0, 0, 1},
+        {1, 0, 2, 0, 0},
+        {0, 1, 0, 3, 0},
+        {0, 0, 1, 0, 4},
+        {1, 0, 0, 1, 0}};
+    g2.loadGraph(graph3); // Load the graph to the object.
+
+    ariel::Graph g3;
+    // 5x5 matrix that represents a connected graph.
+    vector<vector<int>> graph4 = {
+        {0, 1, 0, 0, 1},
+        {1, 0, 1, 0, 0},
+        {0, 1, 0, 1, 0},
+        {0, 0, 1, 0, 1},
+        {1, 0, 0, 1, 0}};
+    g3.loadGraph(graph4); // Load the graph to the object.
+
+    g1 -= g2;
+    CHECK(g1 == g3);    //expected true
 }
 
 TEST_CASE("Test 22")
@@ -429,10 +447,10 @@ TEST_CASE("Test 22")
     ariel::Graph g1;
     // 5x5 matrix that represents a connected graph.
     vector<vector<int>> graph2 = {
-        {0, 1, 0, 0, 1},
-        {1, 0, 1, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
+        {0, 2, 0, 0, 1},
+        {1, 0, 3, 0, 0},
+        {0, 1, 0, 4, 0},
+        {0, 0, 1, 0, 5},
         {1, 0, 0, 1, 0}};
     g1.loadGraph(graph2); // Load the graph to the object.
 
@@ -440,33 +458,22 @@ TEST_CASE("Test 22")
     // 5x5 matrix that represents a connected graph.
     vector<vector<int>> graph3 = {
         {0, 1, 0, 0, 1},
-        {1, 0, 1, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
+        {1, 0, 2, 0, 0},
+        {0, 1, 0, 3, 0},
+        {0, 0, 1, 0, 4},
         {1, 0, 0, 1, 0}};
     g2.loadGraph(graph3); // Load the graph to the object.
-    Graph g3 = g1 -= g2;
-    Graph g4 = g2 -= g1;
-    g3.loadGraph(g3.getAdjacencyMatrix());
-    g4.loadGraph(g4.getAdjacencyMatrix());
-    CHECK(g3 == g4);
-}
 
-TEST_CASE("Test 23")
-{
-    ariel::Graph g1;
+    ariel::Graph g3;
     // 5x5 matrix that represents a connected graph.
-    vector<vector<int>> graph2 = {
-        {0, 1, 0, 0, 1},
-        {1, 0, 1, 0, 0},
-        {0, 1, 0, 1, 0},
-        {0, 0, 1, 0, 1},
-        {1, 0, 0, 1, 0}};
-    g1.loadGraph(graph2); // Load the graph to the object.
+    vector<vector<int>> graph4 = {
+        {0, 3, 0, 0, 2},
+        {2, 0, 5, 0, 0},
+        {0, 2, 0, 7, 0},
+        {0, 0, 2, 0, 9},
+        {2, 0, 0, 2, 0}};
+    g3.loadGraph(graph4); // Load the graph to the object.
 
-    Graph g3 = -g1;
-    Graph g4 = -g1;
-    g3.loadGraph(g3.getAdjacencyMatrix());
-    g4.loadGraph(g4.getAdjacencyMatrix());
-    CHECK(g3 == g4);
+    g1 += g2;
+    CHECK(g1 == g3);    //expected true
 }

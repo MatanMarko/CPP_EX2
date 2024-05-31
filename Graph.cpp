@@ -484,37 +484,6 @@ namespace ariel {
     }
 
 
-    // Graph Graph::operator*(Graph &g) // Multiply the weights of the two graphs
-    // {
-    //     if (adjacencyMatrix[0].size() != g.getNumVertices())
-    //     {
-    //         throw invalid_argument("The number of columns in the first matrix must be equal to the number of rows in the second matrix.");
-    //     }
-    //     vector<vector<int>> newGraph;
-    //     for (size_t i = 0; i < adjacencyMatrix.size(); i++)
-    //     {
-    //         vector<int> row;
-    //         for (size_t j = 0; j < g.getNumVertices(); j++)
-    //         {
-    //             int sum = 0;
-    //             for (size_t k = 0; k < adjacencyMatrix[i].size(); k++)
-    //             {
-    //                 sum += adjacencyMatrix[i][k] * g.adjacencyMatrix[k][j];
-    //             }
-    //             row.push_back(sum);
-    //         }
-    //         newGraph.push_back(row);
-    //     }
-    //     for (size_t i = 0; i < newGraph.size(); i++)
-    //     {
-    //         newGraph[i][i] = 0;
-    //     }
-    //     Graph newG;
-    //     newG.loadGraph(newGraph);
-    //     return newG;
-    // }
-
-
     /*
     Multiply two graphs.
     @param other The graph to multiply with the current graph.
